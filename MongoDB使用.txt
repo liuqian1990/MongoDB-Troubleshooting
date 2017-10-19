@@ -1,0 +1,50 @@
+修改配置文件
+https://docs.mongodb.com/manual/administration/configuration/
+[root@test ~]# cat /data/mongodb/conf/rs1.conf
+systemLog:
+  destination: file
+  path: "/data/mongodb/conf/rs1.log"
+  logAppend: true
+processManagement:
+  fork: true
+  pidFilePath: "/data/mongodb/conf/rs1.pid"
+net:
+  port: 27017
+  bindIp: 0.0.0.0
+storage:
+  dbPath: "/data/mongodb/data"
+  engine: wiredTiger
+  journal: 
+    enabled: true
+security:
+  keyFile: "/data/mongodb/conf/keyfile.data"
+  clusterAuthMode: "keyFile"
+  authorization: enabled
+replication:
+  replSetName: rs1
+operationProfiling:
+   slowOpThresholdMs: 200
+   mode: slowOp
+
+
+
+系统需求
+CENTOS 7	  
+XFS
+echo 2 > /proc/sys/vm/overcommit_memory
+echo 0 > /proc/sys/vm/zone_reclaim_mode 
+
+关闭透明大页和ulimit设置
+https://docs.mongodb.com/manual/tutorial/transparent-huge-pages/
+https://docs.mongodb.com/manual/reference/ulimit/
+
+
+https://docs.mongodb.com/manual/reference/method/db.currentOp/
+###### 检修
+查看正在运行的操作    db.currentOp()   db.currentOp({secs_running: {$gt: 5}})
+终止操作的执行        db.killOp()
+mongodb自带监控命令   mongotop monogostat 
+
+##### 统计函数
+显示集合信息       db.users.stats() 
+显示数据库信息     db.stats()
