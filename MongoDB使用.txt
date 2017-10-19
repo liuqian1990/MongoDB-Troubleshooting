@@ -1,5 +1,6 @@
 修改配置文件
 https://docs.mongodb.com/manual/administration/configuration/
+https://docs.mongodb.com/manual/reference/configuration-options/#storage-options
 [root@test ~]# cat /data/mongodb/conf/rs1.conf
 systemLog:
   destination: file
